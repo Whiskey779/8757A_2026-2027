@@ -8,3 +8,7 @@ void Robot::SplitArcade(int dir, int turn){
 void Robot::init(){
     odm.initialise();
 }
+
+Position Robot::GetPosition(){
+    return odm.GetPosition();
+}

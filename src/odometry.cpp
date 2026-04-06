@@ -24,7 +24,7 @@ inline double Odometry::distanceTravled(const TrakingWheel& trackingWheel) const
 
 Position Odometry::GetPosition() const {
     Position pos;
-    pos.heading = imu.get_heading();
+    pos.heading = DegToRad(imu.get_heading());
     pos.x = 2 * std::sin(pos.heading/2) * (distanceTravled(horizontal)/pos.heading + horizontal.distance);
     pos.y = 2 * std::sin(pos.heading/2) * (distanceTravled(vertical)/pos.heading + vertical.distance);
     return pos;

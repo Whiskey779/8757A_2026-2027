@@ -6,6 +6,7 @@ class Robot{
     public:
         void SplitArcade(int dir, int turn);
         void init();
+        Position GetPosition();
     private:
         pros::MotorGroup leftDrive = pros::MotorGroup({2, 1, 3});
         pros::MotorGroup rightDrive = pros::MotorGroup({4, 5, 9});

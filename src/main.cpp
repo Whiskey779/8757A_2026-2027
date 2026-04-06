@@ -78,10 +78,17 @@ void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	Robot robot;
 	robot.init();
+	Position pose;
+
+	pros::lcd::clear();
 
 
 	while (true) {
 		robot.SplitArcade(master.get_analog(ANALOG_LEFT_Y), master.get_analog(ANALOG_RIGHT_X));
+		pose = robot.GetPosition();
+		pros::lcd::print(1, "Heading: %d", pose.heading);
+		pros::lcd::print(2, "X: %d", pose.x);
+		pros::lcd::print(3, "Y: %d", pose.y);
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
