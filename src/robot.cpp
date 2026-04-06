@@ -1,8 +1,10 @@
 #include "robot.h"
 
-void Robot::driverInput(pros::Controller& master){
-    int dir = master.get_analog(ANALOG_LEFT_Y);
-    int turn = master.get_analog(ANALOG_RIGHT_X);
+void Robot::SplitArcade(int dir, int turn){
     leftDrive.move(dir - turn);
     rightDrive.move(dir + turn);
+}
+
+void Robot::init(){
+    odm.initialise();
 }

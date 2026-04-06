@@ -77,10 +77,11 @@ void autonomous() {}
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	Robot robot;
+	robot.init();
 
 
 	while (true) {
-		robot.driverInput(master);
+		robot.SplitArcade(master.get_analog(ANALOG_LEFT_Y), master.get_analog(ANALOG_RIGHT_X));
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
