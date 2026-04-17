@@ -14,13 +14,12 @@ struct TrakingWheel{
 
 class Odometry{
     public:
-        Odometry(float trakingWheelRadius, int horizontalTrackingWheelPort, int verticalTrackingWheelPort, int imuPort, float verticalDistanceTraking, float horizontalDistanceTraking);
         void initialise();
         void reset();
         Position GetPosition() const;
     private:
-        TrakingWheel horizontal, vertical;
-        pros::Imu imu;
+        TrakingWheel horizontal = {pros::Rotation(20), 1, 3}, vertical = {pros::Rotation(18), 1, 4};
+        pros::Imu imu = pros::Imu(11);
 
         double distanceTravled(const TrakingWheel& trackingWheel) const;
 };

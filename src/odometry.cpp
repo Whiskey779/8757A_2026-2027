@@ -2,10 +2,6 @@
 #include "angle.h"
 #include <cmath>
 
-Odometry::Odometry(float trakingWheelRadius, int horizontalTrackingWheelPort, int verticalTrackingWheelPort, int imuPort, float verticalDistanceTraking, float horizontalDistanceTraking)
-:imu(imuPort), vertical({pros::Rotation(verticalTrackingWheelPort), trakingWheelRadius, verticalDistanceTraking}), 
-horizontal({pros::Rotation(horizontalTrackingWheelPort), trakingWheelRadius, horizontalDistanceTraking}){}
-
 void Odometry::initialise(){
     imu.reset(false);
     vertical.senesor.reset();
@@ -21,7 +17,7 @@ void Odometry::reset(){
 inline double Odometry::distanceTravled(const TrakingWheel& trackingWheel) const{
     return DegToRad(trackingWheel.senesor.get_position() * 100) * trackingWheel.radius;
 }
-
+ 
 Position Odometry::GetPosition() const {
     Position pos;
     pos.heading = DegToRad(imu.get_heading());

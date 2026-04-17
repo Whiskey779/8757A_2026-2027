@@ -8,8 +8,8 @@ class Robot{
         void init();
         Position GetPosition();
     private:
-        pros::MotorGroup leftDrive = pros::MotorGroup({2, 1, 3});
-        pros::MotorGroup rightDrive = pros::MotorGroup({4, 5, 9});
-        Odometry odm = Odometry(1.0f, 12, 13, 14, 3.0f, 4.0f);
+        pros::MotorGroup leftDrive = pros::MotorGroup({-6, 8, 10});
+        pros::MotorGroup rightDrive = pros::MotorGroup({5, 13, -15});
+        //Odometry odm = Odometry(1.0f, 20, 18, 11, 3.0f, 4.0f);
 
 };
