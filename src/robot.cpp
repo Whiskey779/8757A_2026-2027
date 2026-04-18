@@ -39,5 +39,6 @@ Position Robot::GetPosition(){
 void Robot::HeadingUpdateLoop(){
     while(true){
         odm.updateHeading();
+        pros::delay(10);
     }
 }

@@ -1,6 +1,8 @@
 #include "main.h"
 #include "robot.h"
 
+Robot robot;
+
 /**
  * A callback function for LLEMU's center button.
  *
@@ -24,10 +26,8 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
-
-	pros::lcd::register_btn1_cb(on_center_button);
+	robot.init();
+	pros::Task headingTask([]{robot.HeadingUpdateLoop();}, "Updating heading for Odom");
 }
 
 /**
@@ -76,8 +76,6 @@ void autonomous() {}
  */
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	Robot robot;
-	robot.init();
 	Position pose;
 
 	pros::lcd::clear();
