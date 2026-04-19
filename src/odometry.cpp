@@ -25,8 +25,9 @@ Position Odometry::GetPosition(){
         MutexGuard mg(headingMtx);
         pos.heading = sumHeading;
     }
-    pos.x = 2 * std::sin(pos.heading / 2) * (distanceTravled(horizontal) / pos.heading + horizontal.offset);
-    pos.y = 2 * std::sin(pos.heading / 2) * (distanceTravled(vertical) / pos.heading + vertical.offset);
+    double sinPart = 2 * std::sin(pos.heading / 2);
+    pos.x = sinPart * (distanceTravled(horizontal) / pos.heading + horizontal.offset);
+    pos.y = sinPart * (distanceTravled(vertical) / pos.heading + vertical.offset);
     return pos;
 }
 

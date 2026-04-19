@@ -7,6 +7,7 @@ class Robot{
         void SplitArcade(int dir, int turn);
         void init();
         void HeadingUpdateLoop();
+        void TurnHeading(double targetAngle);
         Position GetPosition();
     private:
         bool driveDisabled = false;
