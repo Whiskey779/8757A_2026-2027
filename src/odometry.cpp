@@ -3,6 +3,11 @@
 #include "mutex.h"
 #include <cmath>
 
+Odometry::Odometry(int imuPort, int verticalTrackingPort, double verticalTrackingOffset, int horizontalTrackingPort, double horizontalTrackingOffset, double trackingWheelRadius)
+:imu(imuPort), vertical({pros::Rotation(verticalTrackingPort), trackingWheelRadius, verticalTrackingOffset}),
+horizontal({pros::Rotation(horizontalTrackingPort), trackingWheelRadius, horizontalTrackingOffset}) {}
+
+
 void Odometry::initialise(){
     imu.reset(false);
     vertical.senesor.reset();

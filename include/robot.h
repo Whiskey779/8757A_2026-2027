@@ -14,5 +14,5 @@ class Robot{
         bool traingMode = true;
         pros::MotorGroup leftDrive = pros::MotorGroup({-6, 8, 10});
         pros::MotorGroup rightDrive = pros::MotorGroup({5, 13, -15});
-        Odometry odm;
+        Odometry odm = Odometry(11, 18, 3, 20, 4, 1);
 };

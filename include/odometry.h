@@ -18,9 +18,10 @@ class Odometry{
         void reset();
         void updateHeading();
         Position GetPosition();
+        Odometry(int imuPort, int verticalTrackingPort, double verticalTrackingOffset, int horizontalTrackingPort, double horizontalTrackingOffset, double trackingWheelRadius);
     private:
-        TrakingWheel horizontal = {pros::Rotation(20), 1, 3}, vertical = {pros::Rotation(18), 1, 4};
-        pros::Imu imu = pros::Imu(11);
+        TrakingWheel horizontal, vertical;
+        pros::Imu imu;
         double preHeading = 0;
         double sumHeading = 0;
         pros::rtos::Mutex headingMtx;
