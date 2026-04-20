@@ -51,16 +51,23 @@ void Robot::TurnHeading(double targetAngleDeg){
     double targetAngle = DegToRad(targetAngleDeg);
     Position pos = odm.GetPosition();
     double currentHeading = std::atan2(std::sin(pos.heading), std::cos(pos.heading));
+    double diff = calcAngleDif(currentHeading,targetAngle);
+    double offset;
+    if(diff <= M_PI) offset = 0;
+    else{
+        offset = -currentHeading;
+        targetAngle = diff;
+    }
     double error = targetAngle - currentHeading;
     PID::Reset(error);
-    while(error > turningErrorThreshold){
-        pos = odm.GetPosition();
-        currentHeading = std::atan2(std::sin(pos.heading), std::cos(pos.heading));
-        double speed = PID::Calculate(PID::Values{0,0,0,0}, targetAngle, currentHeading);
+    do{
+        double speed = PID::Calculate(PID::Values{0,0,0,0}, targetAngle, currentHeading + offset);
         speed = std::clamp((int)speed, -127, 127);
         leftDrive.move(speed);
         rightDrive.move(-speed);
-    }
+        pos = odm.GetPosition();
+        currentHeading = std::atan2(std::sin(pos.heading), std::cos(pos.heading));
+    }while(error > turningErrorThreshold);
     rightDrive.move(0);
     leftDrive.move(0);
 }
