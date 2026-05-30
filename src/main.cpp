@@ -1,5 +1,6 @@
 #include "main.h"
 #include "robot.h"
+#include <iostream>
 
 Robot robot;
 
@@ -26,8 +27,9 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	pros::lcd::initialize();
 	robot.init();
-	pros::Task headingTask([]{robot.HeadingUpdateLoop();}, "Updating heading for Odom");
+	
 }
 
 /**
@@ -75,18 +77,23 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	pros::Task headingTask([]{robot.HeadingUpdateLoop();}, "Updating heading for Odom");
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	Position pose;
+	double test = 8.5;
 
-	pros::lcd::clear();
-
-
+	//pros::lcd::clear();
+	
+	
 	while (true) {
 		robot.SplitArcade(-master.get_analog(ANALOG_RIGHT_X), -master.get_analog(ANALOG_LEFT_Y));
 		pose = robot.GetPosition();
-		pros::lcd::print(1, "Heading: %d", pose.heading);
-		pros::lcd::print(2, "X: %d", pose.x);
-		pros::lcd::print(3, "Y: %d", pose.y);
+		//std::cout << "Heading: " << pose.heading << " X: " << pose.x << " Y: " << pose.y << '\n';
+		//pros::lcd::set_text(1, "My custom LLEMU text!");
+		pros::lcd::print(1, "Heading: %lf", pose.heading);
+		pros::lcd::print(2, "X: %lf", pose.x);
+		pros::lcd::print(3, "Y: %lf", pose.y);
+		
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
